@@ -28,10 +28,17 @@ def create_excel_obj(temp_excel_path):
         display_listbox.insert(0, err_output)
 
 def process_excel(wb):
+    appending_string = ""
     sheet = wb.worksheets[0]
     for row in sheet.iter_rows(min_row=2, max_col=1, max_row=sheet.max_row):
         for cell in row:
-            
+            if cell.value == cell.offset(row=1, column=0).value:
+                i = 1
+                while cell.offset(row=i, col=0).value == cell.value:
+                    appending_string.append(cell.offset(row=i, col=0).value)
+                    i += 1
+
+
 
 
 def delete_temp_excel(temp_file):
