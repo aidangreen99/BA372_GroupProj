@@ -29,18 +29,16 @@ def create_excel_obj(temp_excel_path):
 
 def process_excel(wb):
     sheet = wb.worksheets[0]
-    for row in sheet.iter_rows(min_row=2, max_col=1, max_row=sheet.max_row):
+    for row in sheet.iter_rows(min_row=1, max_col=1, max_row=sheet.max_row):
         for cell in row:
             appending_string = ""
             if cell.value == cell.offset(row=1, column=0).value:
+                appending_string += str(cell.value)
                 i = 1
                 while cell.offset(row=i, column=0).value == cell.value and cell.value != None:
-                    if cell.offset(row=i, column=3).value == cell.offset(row=0, column=3):
-                        sheet.delete_rows(cell.row + i)
-                        break
-                    appending_string += str(cell.offset(row=i, column=3).value)
-                    appending_string += ', '
-                    sheet.delete_rows(cell.row + i)
+                    if str(cell.offset(row=i, column=3).value) not in appending_string:
+                        appending_string += str(cell.offset(row=i, column=3).value) + ' '
+                    sheet.delete_rows(cell.row + i, 1)
                     i += 1
                 cell.offset(row=0, column=3).value = appending_string
     wb.save(filename= 'temp.xlsx')
