@@ -5,6 +5,7 @@ from tkinter import filedialog
 from pathlib import Path
 from pyexcel.cookbook import merge_all_to_a_book
 import glob
+import sys
 
 
 def convertCSV_excel(csvPath):
@@ -14,7 +15,7 @@ def convertCSV_excel(csvPath):
         return temp_path
     except Exception as err:
         print("Error opening file: " + str(err))
-        exit 
+        sys.exit(0)
 
 
 def create_excel_obj(temp_excel_path):
@@ -46,7 +47,7 @@ def get_csv():
 
 #Event handler for the 'Close' button
 def close_it():
-    exit(0)
+    sys.exit(0)
 
 #Event for 'Run it' button, processes CSV
 def run_it():
