@@ -34,8 +34,12 @@ def process_excel(wb):
             appending_string = ""
             if cell.value == cell.offset(row=1, column=0).value:
                 i = 1
-                while cell.offset(row=i, column=0).value == cell.value:
+                while cell.offset(row=i, column=0).value == cell.value and cell.value != None:
+                    if cell.offset(row=i, column=3).value == cell.offset(row=0, column=3):
+                        sheet.delete_rows(cell.row + i)
+                        break
                     appending_string += str(cell.offset(row=i, column=3).value)
+                    appending_string += ', '
                     sheet.delete_rows(cell.row + i)
                     i += 1
                 cell.offset(row=0, column=3).value = appending_string
