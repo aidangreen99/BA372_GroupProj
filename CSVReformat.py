@@ -36,6 +36,7 @@ def process_excel(wb):
                 i = 1
                 while cell.offset(row=i, col=0).value == cell.value:
                     appending_string.append(cell.offset(row=i, col=0).value)
+                    sheet.delete_rows(cell.row + i)
                     i += 1
 
 
