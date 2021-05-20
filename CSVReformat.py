@@ -33,14 +33,17 @@ def process_excel(wb):
         for cell in row:
             appending_string = ""
             if cell.value == cell.offset(row=1, column=0).value:
-                appending_string += str(cell.value)
+                appending_string = str(cell.offset(row=0, column=3).value) + ', '
                 i = 1
                 while cell.offset(row=i, column=0).value == cell.value and cell.value != None:
                     if str(cell.offset(row=i, column=3).value) not in appending_string:
-                        appending_string += str(cell.offset(row=i, column=3).value) + ' '
-                    sheet.delete_rows(cell.row + i, 1)
-                    i += 1
+                        appending_string += str(cell.offset(row=i, column=3).value) + ', '
+                    sheet.delete_rows(cell.offset(row=i, column=0).row, 1)
+                    # i += 1
+                for i in range(2):
+                    appending_string = appending_string.rstrip(", ")
                 cell.offset(row=0, column=3).value = appending_string
+
     wb.save(filename= 'temp.xlsx')
 
 
