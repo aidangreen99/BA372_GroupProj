@@ -83,15 +83,6 @@ db_frame.pack(side = tk.TOP, fill = tk.BOTH)
 csv_display_frame.pack(side = tk.TOP, fill = tk.BOTH)
 run_close_frame.pack(side = tk.TOP)
 
-# #Text to fill the header
-# label_text = "!!Note!!\n" \
-# "When you specify a *.accdb database file, the app assumes Ms-Access.\n" + \
-# "  (assumes 32-bit Python(3), 32-bit Ms-Access, pyodbc, Ms-Access driver)\n" + \
-# "For all other file extensions the app assumes SQLite(3)."
-
-# header_label = tk.Label(master = header_frame, text = label_text, justify = tk.LEFT)
-# header_label.pack(side = tk.LEFT)
-
 #Button for picking  CSV
 csv_button = tk.Button(master = csv_script_frame, text = "CSV File", command = get_csv)
 
