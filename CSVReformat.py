@@ -29,6 +29,9 @@ def create_excel_obj(temp_excel_path):
 
 def process_excel(wb):
     sheet = wb.worksheets[0]
+    for row in sheet.iter_rows(min_row=2, max_col=1, max_row=sheet.max_row):
+        for cell in row:
+            
 
 
 def delete_temp_excel(temp_file):
