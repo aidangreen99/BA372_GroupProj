@@ -28,16 +28,18 @@ def create_excel_obj(temp_excel_path):
         display_listbox.insert(0, err_output)
 
 def process_excel(wb):
-    appending_string = ""
     sheet = wb.worksheets[0]
     for row in sheet.iter_rows(min_row=2, max_col=1, max_row=sheet.max_row):
         for cell in row:
+            appending_string = ""
             if cell.value == cell.offset(row=1, column=0).value:
                 i = 1
-                while cell.offset(row=i, col=0).value == cell.value:
-                    appending_string.append(cell.offset(row=i, col=0).value)
+                while cell.offset(row=i, column=0).value == cell.value:
+                    appending_string += str(cell.offset(row=i, column=3).value)
                     sheet.delete_rows(cell.row + i)
                     i += 1
+                cell.offset(row=0, column=3).value = appending_string
+    wb.save(filename= 'temp.xlsx')
 
 
 
@@ -50,7 +52,7 @@ def delete_temp_excel(temp_file):
 
 ############################## event handlers #######################################
 
-#Event handler for the 'SQL script file' button
+#Event handler for the 'CSV' button
 def get_csv():
     filename = filedialog.askopenfilename(title = "Select the CSV to be reformatted")
     csv_textbox.delete(0, tk.END)
@@ -62,11 +64,11 @@ def close_it():
 
 #Event for 'Run it' button, processes CSV
 def run_it():
-    csvPath = Path(csv_textbox.get()).read_text()
+    csvPath = csv_textbox.get()
     temp_excel = convertCSV_excel(csvPath)
     temp_workbook = create_excel_obj(temp_excel)
-
-    delete_temp_excel(temp_excel)
+    process_excel(temp_workbook)
+   # delete_temp_excel(temp_excel)
     
 
 
@@ -79,7 +81,7 @@ def run_it():
 
 #Create the root window
 window = tk.Tk()
-window.title("SQL interpreter for Ms-Access and SQLite")
+window.title("CSV Reformatter - Salesforce to Qualtrics")
 
 #Four frames:
 header_frame = tk.Frame(master = window)
