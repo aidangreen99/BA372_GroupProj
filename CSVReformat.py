@@ -31,6 +31,7 @@ def process_excel(wb):
     sheet = wb.worksheets[0]
 
 
+#Deletes temporary excel file
 def delete_temp_excel(temp_file):
     if os.path.isfile(temp_file):
         os.remove(temp_file)
