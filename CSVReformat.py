@@ -45,6 +45,7 @@ def process_excel(wb):
                 cell.offset(row=0, column=3).value = appending_string
 
     wb.save(filename= 'temp.xlsx')
+    return wb
 
 
 
