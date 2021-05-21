@@ -1,5 +1,7 @@
 *.csv
 *.xlsx
+temp.xlsx
+CSV_coming-from_Salesforce.csv
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
