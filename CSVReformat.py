@@ -63,12 +63,10 @@ def excel_to_csv(filename):
         pass
 
 
-
 #Deletes temporary excel file
 def delete_temp_excel(temp_file):
     if os.path.isfile(temp_file):
         os.remove(temp_file)
-
 
 
 ############################## event handlers #######################################
@@ -92,12 +90,6 @@ def run_it():
     excel_to_csv(temp_excel)
     delete_temp_excel(temp_excel)
     
-
-
-
-
-
-
 
 ################################ main #########################################
 
