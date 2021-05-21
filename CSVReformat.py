@@ -6,6 +6,7 @@ from pathlib import Path
 from pyexcel.cookbook import merge_all_to_a_book
 import glob
 import sys
+import pandas as pd
 
 
 def convertCSV_excel(csvPath):
@@ -50,9 +51,16 @@ def process_excel(wb):
                 cell.offset(row=0, column=3).value = appending_string
 
     wb.save(filename= 'temp.xlsx')
+    wb.close()
 
-
-
+def excel_to_csv(filename):
+    files = [('CSV', '*.csv')]
+    try:
+        convert_xlsx = pd.read_excel('temp.xlsx', engine='openpyxl')
+        savePath = filedialog.asksaveasfilename(defaultextension= '.csv', initialdir = "/<file_name>",title = "Save as",filetypes = files)
+        convert_xlsx.to_csv(savePath, encoding='utf-8', index=False)
+    except Exception as err:
+        pass
 
 
 
@@ -81,7 +89,8 @@ def run_it():
     temp_excel = convertCSV_excel(csvPath)
     temp_workbook = create_excel_obj(temp_excel)
     process_excel(temp_workbook)
-   # delete_temp_excel(temp_excel)
+    excel_to_csv(temp_excel)
+    delete_temp_excel(temp_excel)
     
 
 
@@ -119,7 +128,7 @@ csv_button.pack(side = tk.LEFT)
 csv_textbox.pack(side = tk.LEFT)
 
 #Listbox for displaying things
-display_listbox = tk.Listbox(master = csv_display_frame, width = 113, height = 25)
+display_listbox = tk.Listbox(master = csv_display_frame, width = 115, height = 25)
 display_listbox.pack(side = tk.LEFT, fill = tk.Y)
 
 #Scrollbar for the listbox
@@ -131,7 +140,7 @@ display_listbox.config(yscrollcommand = scrollbar.set)
 scrollbar.config(command = display_listbox.yview) 
 
 #Two buttons, each with its own event_handler
-run_button = tk.Button(text = "Run", master = run_close_frame, command = run_it)
+run_button = tk.Button(text = "Format", master = run_close_frame, command = run_it)
 close_button = tk.Button(text = "Close", master = run_close_frame, command = close_it)
 
 run_button.pack(side = tk.LEFT)
