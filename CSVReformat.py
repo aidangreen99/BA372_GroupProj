@@ -27,21 +27,26 @@ def create_excel_obj(temp_excel_path):
         display_listbox.delete(0, tk.END)
         display_listbox.insert(0, err_output)
 
+
 def process_excel(wb):
     sheet = wb.worksheets[0]
     for row in sheet.iter_rows(min_row=1, max_col=1, max_row=sheet.max_row):
         for cell in row:
+            #This string will be used to contain the course codes as they appear
             appending_string = ""
+            #If a faculty name appears twice...
             if cell.value == cell.offset(row=1, column=0).value:
                 appending_string = str(cell.offset(row=0, column=3).value) + ', '
                 i = 1
+                #Then while there are still two instances of the name, add the resepctive course code and delete the extra row
                 while cell.offset(row=i, column=0).value == cell.value and cell.value != None:
                     if str(cell.offset(row=i, column=3).value) not in appending_string:
                         appending_string += str(cell.offset(row=i, column=3).value) + ', '
                     sheet.delete_rows(cell.offset(row=i, column=0).row, 1)
-                    # i += 1
+                #Fix the course code cell by removing the extra comma and space
                 for i in range(2):
                     appending_string = appending_string.rstrip(", ")
+                #Write the new value to the first row's course code cell
                 cell.offset(row=0, column=3).value = appending_string
 
     wb.save(filename= 'temp.xlsx')
