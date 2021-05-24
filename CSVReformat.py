@@ -10,6 +10,7 @@ import pandas as pd
 
 
 def convertCSV_excel(csvPath):
+    display_listbox.insert(tk.END, "Converting CSV to temporary Excel file.")
     temp_path = "temp.xlsx"
     try:
         merge_all_to_a_book(glob.glob(csvPath), temp_path)
@@ -30,6 +31,7 @@ def create_excel_obj(temp_excel_path):
 
 
 def process_excel(wb):
+    display_listbox.insert(tk.END, "Reformatting temporary Excel file.")
     sheet = wb.worksheets[0]
     for row in sheet.iter_rows(min_row=1, max_col=1, max_row=sheet.max_row):
         for cell in row:
@@ -54,6 +56,7 @@ def process_excel(wb):
     wb.close()
 
 def excel_to_csv(filename):
+    display_listbox.insert(tk.END, "Converting temporary Excel file to '.csv'.")
     files = [('CSV', '*.csv')]
     try:
         convert_xlsx = pd.read_excel('temp.xlsx', engine='openpyxl')
@@ -65,6 +68,7 @@ def excel_to_csv(filename):
 
 #Deletes temporary excel file
 def delete_temp_excel(temp_file):
+    display_listbox.insert(0, "Removing temporary Excel file.")
     if os.path.isfile(temp_file):
         os.remove(temp_file)
 
@@ -120,7 +124,7 @@ csv_button.pack(side = tk.LEFT)
 csv_textbox.pack(side = tk.LEFT)
 
 #Listbox for displaying things
-display_listbox = tk.Listbox(master = csv_display_frame, width = 115, height = 25)
+display_listbox = tk.Listbox(master = csv_display_frame, width = 115, height = 10)
 display_listbox.pack(side = tk.LEFT, fill = tk.Y)
 
 #Scrollbar for the listbox
