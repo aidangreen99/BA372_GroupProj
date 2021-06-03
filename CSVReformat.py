@@ -70,9 +70,9 @@ def excel_to_csv(filename):
 def delete_temp_excel(temp_file):
     if os.path.isfile(temp_file):
         os.remove(temp_file)
-        display_listbox.insert(0, "Removing temporary Excel file.")
+        display_listbox.insert(tk.END, "Removing temporary Excel file.")
     else: 
-        display_listbox.insert(0, "Temporary file not found.")
+        display_listbox.insert(tk.END, "Temporary file not found.")
 
 
 ############################## event handlers #######################################
