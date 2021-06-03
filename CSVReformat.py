@@ -51,9 +51,9 @@ def process_excel(wb):
                     appending_string = appending_string.rstrip(", ")
                 #Write the new value to the first row's course code cell
                 cell.offset(row=0, column=3).value = appending_string
-
     wb.save(filename= 'temp.xlsx')
     wb.close()
+
 
 def excel_to_csv(filename):
     display_listbox.insert(tk.END, "Converting temporary Excel file to '.csv'.")
