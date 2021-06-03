@@ -50,7 +50,7 @@ def process_excel(wb):
                 for i in range(2):
                     appending_string = appending_string.rstrip(", ")
                 #Write the new value to the first row's course code cell
-                cell.offset(row=0, column=3).value = appending_string
+                if 'None' not in appending_string: cell.offset(row=0, column=3).value = appending_string
     wb.save(filename= 'temp.xlsx')
     wb.close()
 
